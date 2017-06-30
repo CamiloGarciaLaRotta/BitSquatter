@@ -1,0 +1,31 @@
+.\" Manpage for BitSquat
+.\" Contact: camilo.e.garcia@mail.mcgill.ca 
+.TH man 7 "29 June 2017" "0.1" "BitSquat man page"
+.SH NAME
+BitSquat \- URL generator tool
+.SH SYNOPSIS
+.B bitsquat [\fB\-n\fR \fIBITS\fR] [\fB\-c\fR] [\fB\-f\fR \fIFILENAME\fR] [\fB\-\-available\fR] [\fB\-\-only\-ext\fR] [\fB\-\-only\-dom\fR] \fIURL\fR
+.SH DESCRIPTION
+.B BitSquat
+generates all possible URLs (domain name + domain extension pairs) that differ by n bits (1 by default) from an input URL.
+.SH OPTIONS
+.TP
+.BR \-n " " \fIBITS\fR
+Set the number of bits to change.
+.TP
+.BR \-c " "
+Only output the count of available URLs.
+.TP
+.BR -f " " \fIFILENAME\fR
+Instead of reading from stdin read URLs to bitsquat from a file
+.TP
+.BR \-\-available
+Only display available URLs. Determined through WHOIS servers
+.TP
+.BR \-\-only\-dom
+Only modify domain name. Leave domain extension as is.
+.TP
+.BR \-\-only\-ext
+Only modify extension name. Leave domain name as is.
+.SH AUTHOR
+Camilo Garcia La Rotta (camilo.e.garcia@mail.mcgill.ca)

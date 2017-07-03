@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <types/sys.h>
+#include <regex.h>
 
 // print the contents of an int array
 void printIntArray(int arr[])
@@ -39,12 +41,37 @@ void makeBitString(const char* str, int arr[])
 	}
 }	
 
+// strip off http[s] and www from url
+char* normalizeURL(const char* fullURL)
+{
+	int status;
+	regex_t re;
+	
+	if(regcomp(&re, '^www.[a-z]', REG_EXTEND))
+	{
+		return EXIT_FAILURE;
+	}
+	
+	status = regexec(&re, fullURL, );
+
+	regfree(&re);
+	return index;
+}
+
 int main(int argc, char* argv[])
 {
+	// TODO make more concise arg check
 	if(argc<2 ||(strcmp(argv[1],"-h")==0) || (strcmp(argv[1],"--help")==0))
 	{
 		printf("See man bitsquat\n");
 	}
+	
+	// get domain domain + extension TODO add error handling
+	char* url = normailizeURL(argv[argc-1]);
+	
+
+
+	/* BIT STRING LOGIC
 	// call makeBitString now, but must first make appropriate array based on size of URL	
 	char ch = argv[1][0];
 	// must initialize array to all zeroes
@@ -52,6 +79,7 @@ int main(int argc, char* argv[])
 	getBinary(ch, binaryChar);
 	printIntArray(binaryChar);		
 	printf("%d", ch);	
-
+	*/
+	
 	return EXIT_SUCCESS;
 }

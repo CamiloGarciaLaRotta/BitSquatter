@@ -1,10 +1,7 @@
-all: main
+all: bitsquat 
 
-main: main.o
-	gcc main.o -o bitsquat 
-
-main.o: main.c
-	gcc -c main.c
+bitsquat: main.c
+	gcc -Wall -o bitsquat main.c
 
 clean: 
-	rm *.o bitsquat
+	rm bitsquat

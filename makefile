@@ -1,7 +1,12 @@
-all: bitsquat 
+all:	bitsquat 
 
-bitsquat: main.c
-	gcc -Wall -o bitsquat main.c
+bitsquat: regexer.o main.c header.h
+	gcc -Wall regexer.o main.c -o bitsquat
 
+regexer.o: regexer.c
+	gcc -Wall -c regexer.c
+ 
 clean: 
-	rm bitsquat
+	rm *.o bitsquat
+
+gg: clean all

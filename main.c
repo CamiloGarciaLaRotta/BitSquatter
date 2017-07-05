@@ -1,85 +1,84 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <types/sys.h>
-#include <regex.h>
+#include "header.h"
 
-// print the contents of an int array
-void printIntArray(int arr[])
+// General TODOs
+//	- Add error handling for CL arguments
+//	- Add -h --help
+//	- Allow all possible urls
+// 	- Remove preceding http(s):// and www. from url
+
+// split url into domain name and domain extension
+void split_url(const char* url, char* dom, char* ext)
 {
-	int i;
-	// TODO to make it cleaner must find way to avoid hardcoding size of arr
-	for(i=0;i<8;i++)
-	{
-		printf("%d",arr[i]);
-	}
-	printf("\n");
+	int start, end;
+	
+	match_regex("^[[:alnum:]]*(.)[[:alnum:].]*", url, &start, &end);	
+	
+	sprintf(dom, "%.*s", (start), url);
+	sprintf(ext, "%.*s", (int)strlen(url)-end, url+start+1);
+	
+	/*	
+	printf("Input string: %s\n", url);
+	printf("Domain: %s\n", dom);
+	printf("Extension: %s\n", ext);
+	printf("Indices g: %d, %d\n", start, end);
+	*/
 }
 
-// returns an 8-cell int array representing the input number
-void getBinary(int i, int arr[])
-{
-	// we start stripping from LSB
-	int magnitude = 7;
-	int remainder;
-	while(i>0)
-	{	
-		remainder = i%2;
-		i /= 2;
-		arr[magnitude--] = remainder; 
-	}
-}
-
-// given an input string, fill an array with its corresponding Bytes 
-void makeBitString(const char* str, int arr[])
+/*
+// transform characters of a string into corresponding Bytes 
+void get_bitstring(const char* str, int bitstring[])
 {
 	int i;
-	int Byte = 0;
+	int Byte = 0
 	for(i=0;i<strlen(str)-1;i++)
 	{
-		getBinary(str[i],arr[Byte++]);
+		get_binary(str[i], arr[Byte]); //TODO find way of filling 8 cells of array in for loop 
+		Byte+=8;
 	}
-}	
-
-// strip off http[s] and www from url
-char* normalizeURL(const char* fullURL)
-{
-	int status;
-	regex_t re;
-	
-	if(regcomp(&re, '^www.[a-z]', REG_EXTEND))
-	{
-		return EXIT_FAILURE;
-	}
-	
-	status = regexec(&re, fullURL, );
-
-	regfree(&re);
-	return index;
 }
+
+
+// fill 8 cells with the binary representation of a character
+void get_binary(int i, int arr[])
+{
+	int magnitude= 7;
+	int remainder;
+	while(i > 0)
+	{
+		remainder = i % 2;
+		i /= 2;
+		arr[magnitude--] = remainder;
+	}
+}
+*/
+
 
 int main(int argc, char* argv[])
 {
-	// TODO make more concise arg check
-	if(argc<2 ||(strcmp(argv[1],"-h")==0) || (strcmp(argv[1],"--help")==0))
-	{
-		printf("See man bitsquat\n");
-	}
-	
-	// get domain domain + extension TODO add error handling
-	char* url = normailizeURL(argv[argc-1]);
-	
+	char* url = argv[argc-1];
+	char* dom;
+	char* ext;
+	dom = (char*)malloc(BUFFER_SIZE*sizeof(char));
+	ext = (char*)malloc(BUFFER_SIZE*sizeof(char));
 
-
-	/* BIT STRING LOGIC
-	// call makeBitString now, but must first make appropriate array based on size of URL	
-	char ch = argv[1][0];
-	// must initialize array to all zeroes
-	int binaryChar[] = {0,0,0,0,0,0,0,0};
-	getBinary(ch, binaryChar);
-	printIntArray(binaryChar);		
-	printf("%d", ch);	
-	*/
+	// get domain name + domain extension
+	split_url(url, dom, ext);	
 	
-	return EXIT_SUCCESS;
+	// get bitstrings of domain/extension
+	size_t dom_length = strlen(dom);
+	size_t ext_length = strlen(ext);
+
+	printf("Domain length: %zd\n", dom_length);
+	printf("Extension length: %zd\n", ext_length);
+	
+//	int dom_bitstring[dom_length*8];
+//	int ext_bitstring[ext_length*8];
+	
+//	get_bitstring(dom, dom_bitstring);
+//	get_bitstring(ext, ext_bitstring);
+	
+	free(dom);
+	free(ext);
+	
+	return(EXIT_SUCCESS);
 }

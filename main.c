@@ -6,6 +6,30 @@
 //	- Allow all possible urls
 // 	- Remove preceding http(s):// and www. from url
 
+
+// fill an array with the binary representation of a character
+void get_binary(int ch, int position, char arr[])
+{
+        int remainder;
+        while(ch > 0)
+        {
+                remainder = ch % 2;
+                ch /= 2;
+                arr[position--] = remainder + '0'; // int -> char
+        }
+}
+
+// return the bitstring representation of a string
+void get_bitstring(const char* str, char bitstring[])
+{
+        int i;    // string index
+        int Byte; // character index in bitstring
+        for(i=0, Byte=7;i<strlen(str);i++,Byte+=8)
+        {
+                get_binary(str[i], Byte, bitstring);
+        }
+}
+
 // split url into domain name and domain extension
 void split_url(const char* url, char* dom, char* ext)
 {
@@ -23,35 +47,6 @@ void split_url(const char* url, char* dom, char* ext)
 	printf("Indices g: %d, %d\n", start, end);
 	*/
 }
-
-/*
-// transform characters of a string into corresponding Bytes 
-void get_bitstring(const char* str, int bitstring[])
-{
-	int i;
-	int Byte = 0
-	for(i=0;i<strlen(str)-1;i++)
-	{
-		get_binary(str[i], arr[Byte]); //TODO find way of filling 8 cells of array in for loop 
-		Byte+=8;
-	}
-}
-
-
-// fill 8 cells with the binary representation of a character
-void get_binary(int i, int arr[])
-{
-	int magnitude= 7;
-	int remainder;
-	while(i > 0)
-	{
-		remainder = i % 2;
-		i /= 2;
-		arr[magnitude--] = remainder;
-	}
-}
-*/
-
 
 int main(int argc, char* argv[])
 {
@@ -71,12 +66,20 @@ int main(int argc, char* argv[])
 	printf("Domain length: %zd\n", dom_length);
 	printf("Extension length: %zd\n", ext_length);
 	
-//	int dom_bitstring[dom_length*8];
-//	int ext_bitstring[ext_length*8];
+	char dom_base_bitstring[dom_length*8];
+	char ext_base_bitstring[ext_length*8];
 	
-//	get_bitstring(dom, dom_bitstring);
-//	get_bitstring(ext, ext_bitstring);
+	// initialize string to "0"
+        // this will be helpful when filling the bitstring with the bin representation of a char
+        memset(dom_base_bitstring, '0', (int)dom_length*8);
+        memset(ext_base_bitstring, '0', (int)ext_length*8);
 	
+	get_bitstring(dom, dom_base_bitstring);
+	get_bitstring(ext, ext_base_bitstring);
+	
+	printf("%.*s\n", (int)dom_length*8, dom_base_bitstring);
+	printf("%.*s\n", (int)ext_length*8, ext_base_bitstring);
+
 	free(dom);
 	free(ext);
 	

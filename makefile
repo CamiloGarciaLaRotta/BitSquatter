@@ -1,10 +1,15 @@
-all:	bitsquat 
+CFLAGS=-Wall
 
-bitsquat: regexer.o main.c header.h
-	gcc -Wall regexer.o main.c -o bitsquat
+all: bitsquat 
 
-regexer.o: regexer.c
-	gcc -Wall -c regexer.c
+bitsquat: regexer.o bitsquat.o main.c 
+	gcc $(CFLAGS) regexer.o bitsquat.o main.c -o bitsquat
+
+regexer.o: regexer.c regexer.h
+	gcc $(CFLAGS) -c regexer.c
+
+bitsquat.o: bitsquat.c bitsquat.h
+	gcc $(CFLAGS) -c bitsquat.c
  
 clean: 
 	rm *.o bitsquat

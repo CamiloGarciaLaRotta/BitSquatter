@@ -1,2 +1,3 @@
-.o*
+*.o*
 test.c
+bitsquat

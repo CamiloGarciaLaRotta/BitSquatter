@@ -2,12 +2,6 @@
 
 #define BUFFER_SIZE 80
 
-// General TODOs
-//	- Add error handling for CL arguments
-//	- Add -h --help
-//	- Allow all possible urls
-// 	- Remove preceding http(s):// and www. from url
-
 int main(int argc, char* argv[])
 {
 	char* url = argv[argc-1];
@@ -22,7 +16,7 @@ int main(int argc, char* argv[])
 	size_t dom_length = strlen(dom);
 	size_t ext_length = strlen(ext);
 
-	// array to contai b. n the binary represenation of the domain name & extension
+	// array to contain the binary represenation of the domain name & extension
 	char dom_base_bitstring[dom_length*8];
 	char ext_base_bitstring[ext_length*8];
 	memset(dom_base_bitstring, '0', (int)dom_length*8);

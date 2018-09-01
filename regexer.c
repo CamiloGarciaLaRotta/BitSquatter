@@ -1,5 +1,7 @@
 #include "regexer.h"
 
+// match the given pattern in the string to_match
+// the start and end position of the matched pattern are stored accordingly
 int match_regex(const char* pattern, const char* to_match, int* start, int* end)
 {	
 	assert(start);

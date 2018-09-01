@@ -1,8 +1,8 @@
 CFLAGS=-Wall
 
-all: bitsquat 
+all: bitsquat
 
-bitsquat: regexer.o bitsquat.o main.c 
+bitsquat: regexer.o bitsquat.o main.c
 	gcc $(CFLAGS) regexer.o bitsquat.o main.c -o bitsquat
 
 regexer.o: regexer.c regexer.h
@@ -10,9 +10,12 @@ regexer.o: regexer.c regexer.h
 
 bitsquat.o: bitsquat.c bitsquat.h
 	gcc $(CFLAGS) -c bitsquat.c
- 
-clean: 
+
+test: clean bitsquat
+	valgrind --leak-check=full -v ./bitsquat toto.com
+
+clean:
 	rm *.o bitsquat
 
-.PHONY: all clean
+.PHONY: all clean test
 

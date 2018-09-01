@@ -14,4 +14,5 @@ bitsquat.o: bitsquat.c bitsquat.h
 clean: 
 	rm *.o bitsquat
 
-gg: clean all
+.PHONY: all clean
+

@@ -17,7 +17,7 @@ test: clean bitsquat
 			 --track-origins=yes \
 			 --verbose \
 			 --log-file=valgrind-out.txt \
-			 ./bitsquat toto.com
+			 ./bitsquat -v toto.com
 
 clean:
 	rm *.o bitsquat

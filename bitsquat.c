@@ -12,15 +12,21 @@ void get_binary(int ch, int position, char arr[])
         }
 }
 
-// return the bitstring representation of a string
-void get_bitstring(const char* str, char bitstring[])
+// return the binary representation of a string
+void get_binary_string(const char* str, char binary_str[])
 {
         int i;    // string index
-        int Byte; // character index in bitstring
-        for(i=0, Byte=7;i<strlen(str);i++,Byte+=8)
+        int byte; // character index in binary string
+        for(i=0, byte=7;i<strlen(str);i++,byte+=8)
         {
-                get_binary(str[i], Byte, bitstring);
+                get_binary(str[i], byte, binary_str);
         }
+}
+
+// return the string representation of a binary string
+void get_string(const char* binary_str, char string[])
+{
+        // TODO
 }
 
 // split url into domain name and domain extension

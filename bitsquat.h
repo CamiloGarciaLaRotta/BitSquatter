@@ -8,7 +8,7 @@
 void get_binary(int, int, char[]);
 
 // return the bitstring representation of a string
-void get_binary_string(const char*, char[]);
+void get_binary_string(const int, const char*, char[]);
 
 // split url into domain name and domain extension
 void split_url(const char*, char*, char*);

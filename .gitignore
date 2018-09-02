@@ -2,3 +2,4 @@
 *.swp
 test.c
 bitsquat
+valgrind*

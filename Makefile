@@ -1,4 +1,4 @@
-CFLAGS=-Wall
+CFLAGS = -Wall -ggdb3
 
 all: bitsquat
 
@@ -12,7 +12,12 @@ bitsquat.o: bitsquat.c bitsquat.h
 	gcc $(CFLAGS) -c bitsquat.c
 
 test: clean bitsquat
-	valgrind --leak-check=full -v ./bitsquat toto.com
+	valgrind --leak-check=full \
+			 --show-leak-kinds=all \
+			 --track-origins=yes \
+			 --verbose \
+			 --log-file=valgrind-out.txt \
+			 ./bitsquat toto.com
 
 clean:
 	rm *.o bitsquat

@@ -28,3 +28,21 @@ int match_regex(const char* pattern, const char* to_match, int* start, int* end)
 
 	return EXIT_SUCCESS;
 }
+
+// return wether or not the regex matches the string
+bool match(const char* pattern, const char* to_match)
+{
+	regex_t r;
+
+	int compile_status = regcomp(&r, pattern, REG_EXTENDED);
+	if(compile_status != 0)
+	{
+		regfree(&r);
+		return compile_status;
+	}
+
+    int exec_status = regexec(&r, to_match, 0, NULL, 0);
+	regfree(&r);
+	if (!exec_status) return true;
+    else return false;
+}

@@ -19,8 +19,39 @@ bool is_verbose(int num_args, char* args[])
 	return false;
 }
 
+// parse CLI flags to determine if user asked for help
+bool asked_for_help(int num_args, char* args[])
+{
+	if (num_args == 1) return true;
+	int i;
+	for (i=0; i<num_args; i++)
+	{
+		if ((strcmp(args[i], "-h") == 0) || (strcmp(args[i], "--help") == 0))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+//TODO add better CLI flag error handling
+// print to stdout the help
+void print_help()
+{
+	printf("./bitsquat [-h|--help]\n");
+	printf("./bitsquat [-v|--verbose] <domain_name.extension>\n\n");
+	printf("Example: ./bitsquat --verbose foo.bar\n\n");
+}
+
 int main(int argc, char* argv[])
 {
+	if (asked_for_help(argc, argv))
+	{
+		print_help();
+		exit(EXIT_SUCCESS);
+	}
+
 	const int BYTE = 8;
 	const bool verbose = is_verbose(argc, argv);
 	const char* url = argv[argc-1];
@@ -53,6 +84,7 @@ int main(int argc, char* argv[])
 		printf("%s:\t%.*s\n", ext, (int)ext_binary_length, ext_binary_str);
 	}
 
+	// generate 1-bit permutations
 	char dom_binary_permutations[dom_binary_length][dom_binary_length+1];
 	char ext_binary_permutations[ext_binary_length][ext_binary_length+1];
 
@@ -72,14 +104,10 @@ int main(int argc, char* argv[])
 	{
 		dom_binary_permutations[i][i] = (dom_binary_permutations[i][i]) == '1' ? '0' : '1';
 	}
-
 	for (i=0; i<(int)ext_binary_length; i++)
 	{
 		ext_binary_permutations[i][i] = (ext_binary_permutations[i][i]) == '1' ? '0' : '1';
 	}
-
-	printf("\n%s\n%s\n\n", dom_binary_str, dom_binary_permutations[5]);
-	printf("%s\n%s\n\n", ext_binary_str, ext_binary_permutations[10]);
 
 	// transform back to string
 	char dom_str_permutations[dom_binary_length][dom_str_length+1];
@@ -97,8 +125,28 @@ int main(int argc, char* argv[])
 		ext_str_permutations[i][ext_str_length] = '\0';
 	}
 
-	for (i=0; i<(int)dom_binary_length; i++) printf("%s, ", dom_str_permutations[i]);
-	for (i=0; i<(int)ext_binary_length; i++) printf("%s, ", ext_str_permutations[i]);
+	// generate all possible combination of domain name & extension
+	const int num_url_combinations = dom_binary_length * ext_binary_length;
+	char url_permutations[num_url_combinations][dom_str_length + ext_str_length +2];
+	int j, counter;
+	counter = 0;
+	for (i=0; i<(int)dom_binary_length; i++)
+	{
+		for (j=0; j<(int)ext_binary_length; j++)
+		{
+			memcpy(url_permutations[counter], dom_str_permutations[i], dom_str_length);
+			url_permutations[counter][dom_str_length] = '.';
+			memcpy(&url_permutations[counter][dom_str_length + 1], ext_str_permutations[j], ext_str_length);
+			url_permutations[counter][dom_str_length + ext_str_length + 1] = '\0';
+
+			counter++;
+		}
+	}
+
+	for (i=0; i<num_url_combinations; i++)
+	{
+		if (is_valid_url(url_permutations[i])) printf("%s\n", url_permutations[i]);
+	}
 
 	free(dom);
 	free(ext);

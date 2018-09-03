@@ -81,6 +81,25 @@ int main(int argc, char* argv[])
 	printf("\n%s\n%s\n\n", dom_binary_str, dom_binary_permutations[5]);
 	printf("%s\n%s\n\n", ext_binary_str, ext_binary_permutations[10]);
 
+	// transform back to string
+	char dom_str_permutations[dom_binary_length][dom_str_length+1];
+	char ext_str_permutations[ext_binary_length][ext_str_length+1];
+
+	for (i=0; i<(int)dom_binary_length; i++)
+	{
+		get_string(dom_binary_length, dom_binary_permutations[i], dom_str_permutations[i]);
+		dom_str_permutations[i][dom_str_length] = '\0';
+	}
+
+	for (i=0; i<(int)ext_binary_length; i++)
+	{
+		get_string(ext_binary_length, ext_binary_permutations[i], ext_str_permutations[i]);
+		ext_str_permutations[i][ext_str_length] = '\0';
+	}
+
+	for (i=0; i<(int)dom_binary_length; i++) printf("%s, ", dom_str_permutations[i]);
+	for (i=0; i<(int)ext_binary_length; i++) printf("%s, ", ext_str_permutations[i]);
+
 	free(dom);
 	free(ext);
 

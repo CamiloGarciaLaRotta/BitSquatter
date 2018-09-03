@@ -41,7 +41,7 @@ void print_help()
 {
 	printf("./bitsquat [-h|--help]\n");
 	printf("./bitsquat [-v|--verbose] <domain_name.extension>\n\n");
-	printf("Example: ./bitsquat --verbose foo.bar\n\n");
+	printf("Example: ./bitsquat --verbose foobar.com\n\n");
 }
 
 int main(int argc, char* argv[])

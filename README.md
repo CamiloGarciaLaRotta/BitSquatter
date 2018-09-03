@@ -20,6 +20,9 @@ Finally it queries WHOIS servers with all the 1-bit permutations of the binary s
 
 # Documentation
 ```bash
-$ ./bitsquat --help
-ADD EXAMPLE
+./bitsquat [-h|--help]
+./bitsquat [-v|--verbose] <domain_name.extension>
+
+Example: ./bitsquat --verbose foobar.com
+
 ```

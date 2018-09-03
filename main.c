@@ -36,9 +36,11 @@ bool asked_for_help(int num_args, char* args[])
 }
 
 //TODO add better CLI flag error handling
+//TODO rn its a 2 bit permutation: ext and dom. give option to do that or just 1bit perm
 // print to stdout the help
 void print_help()
 {
+	printf("Given a domain name, BitSquatter will output to stdout all the domains different by 1 bit.\n\n");
 	printf("./bitsquat [-h|--help]\n");
 	printf("./bitsquat [-v|--verbose] <domain_name.extension>\n\n");
 	printf("Example: ./bitsquat --verbose foobar.com\n\n");

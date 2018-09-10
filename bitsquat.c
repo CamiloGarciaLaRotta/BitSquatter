@@ -53,8 +53,6 @@ void to_character(const char* binary_str, int position, char arr[])
 void split_url(const char* url, char* dom, char* ext)
 {
         int start, end;
-
-        //TODO handle error failing match
         int matching_status = match_regex("^[[:alnum:]]*(.)[[:alnum:].]*$", url, &start, &end);
 
         sprintf(dom, "%.*s", (start), url);

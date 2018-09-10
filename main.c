@@ -35,8 +35,6 @@ bool asked_for_help(int num_args, char* args[])
 	return false;
 }
 
-//TODO add better CLI flag error handling
-//TODO rn its a 2 bit permutation: ext and dom. give option to do that or just 1bit perm
 // print to stdout the help
 void print_help()
 {

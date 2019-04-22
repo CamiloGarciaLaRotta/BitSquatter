@@ -14,24 +14,33 @@ It then generates all the 1-bit permutations of the binary strings.
 
 # Usage
 1. Compile: `make bitsquat`
-2. Run: `./bisquat toto.com`
+2. Run: 
+    ```bash
+    $ ./bitsquat --verbose foobar.com
+    Target Domain: foobar.com
+    Domain Name: foobar     Domain extension: com
+    foobar: 011001100110111101101111011000100110000101110010
+    com:    011000110110111101101101
+    Foobar.Com
+    Foobar.som
+    Foobar.kom
+    Foobar.gom
+    Foobar.aom
+    Foobar.bom
+    Foobar.cOm
+    ...
+    ```
 
 # Documentation
 ```bash
-Given a domain name, BitSquatter will output to stdout all the domains different by 1 bit.
+$ ./bitsquat --help
+Usage: bitsquat [OPTION...] [URL]
+BitSquatter outputs all valid domains different by 1 bit from the input URL.
 
-./bitsquat [-h|--help]
-./bitsquat [-v|--verbose] <domain_name.extension>
+Example: bitsquat --verbose foobar.com
 
-Example: ../bitsquat foobar.com
-Foobar.Com
-Foobar.som
-Foobar.kom
-Foobar.gom
-Foobar.aom
-Foobar.bom
-Foobar.cOm
-Foobar.cgm
-Foobar.ckm
-Foobar.cmm
+  -v, --verbose              Display domain name and extension bitstrings
+  -?, --help                 Give this help list
+      --usage                Give a short usage message
+  -V, --version              Print program version
 ```

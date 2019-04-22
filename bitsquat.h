@@ -18,7 +18,7 @@ void to_binary(int, int, char[]);
 void to_character(const char *, int, char[]);
 
 // split url into domain name and domain extension
-void split_url(const char *, char *, char *);
+int split_url(const char *, char *, char *);
 
 // check if input string is valid URL
 bool is_valid_url(const char *);

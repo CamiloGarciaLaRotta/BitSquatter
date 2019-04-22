@@ -1,71 +1,79 @@
+#include <argp.h>
 #include <stdbool.h>
 #include "bitsquat.h"
 
 #define BUFFER_SIZE 80
 
-// parse CLI flags to determine wether to be verbose or not
-bool is_verbose(int num_args, char *args[])
+const char *argp_program_version = "Bitsquat v0.1";
+static char doc[] = "BitSquatter outputs all valid domains different by 1 bit \
+from the input URL.\n\nExample: bitsquat --verbose foobar.com";
+static char args_doc[] = "[URL]";
+static struct argp_option options[] = {
+		{"verbose", 'v', 0, 0, "Display domain name and extension bitstrings", 0},
+		{0}};
+
+struct arguments
 {
-	int i;
-	for (i = 0; i < num_args; i++)
+	char *url;
+	bool isVerbose;
+};
+
+static error_t parse_opt(int key, char *arg, struct argp_state *state)
+{
+	struct arguments *arguments = state->input;
+	switch (key)
 	{
-		if ((strcmp(args[i], "-v") == 0) || (strcmp(args[i], "--verbose") == 0))
+	case 'v':
+		arguments->isVerbose = true;
+		break;
+	case ARGP_KEY_ARG:
+		if (state->arg_num == 0)
 		{
-			return true;
+			arguments->url = arg;
 		}
-	}
-
-	return false;
-}
-
-// parse CLI flags to determine if user asked for help
-bool asked_for_help(int num_args, char *args[])
-{
-	if (num_args == 1)
-		return true;
-	int i;
-	for (i = 0; i < num_args; i++)
-	{
-		if ((strcmp(args[i], "-h") == 0) || (strcmp(args[i], "--help") == 0))
+		else
 		{
-			return true;
+			argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
 		}
+		break;
+	case ARGP_KEY_END:
+		if (arguments->url == NULL)
+		{
+			argp_state_help(state, stdout, ARGP_HELP_STD_HELP);
+		}
+		break;
+	default:
+		return ARGP_ERR_UNKNOWN;
 	}
-
-	return false;
+	return 0;
 }
 
-// print to stdout the help
-void print_help()
-{
-	printf("Given a domain name, BitSquatter will output to stdout all the domains different by 1 bit.\n\n");
-	printf("./bitsquat [-h|--help]\n");
-	printf("./bitsquat [-v|--verbose] <domain_name.extension>\n\n");
-	printf("Example: ./bitsquat --verbose foobar.com\n\n");
-}
+static struct argp argp = {options, parse_opt, args_doc, doc, 0, 0, 0};
 
 int main(int argc, char *argv[])
 {
-	if (asked_for_help(argc, argv))
-	{
-		print_help();
-		exit(EXIT_SUCCESS);
-	}
+	struct arguments arguments;
+	arguments.isVerbose = false;
+
+	argp_parse(&argp, argc, argv, 0, 0, &arguments);
 
 	const int BYTE = 8;
-	const bool verbose = is_verbose(argc, argv);
-	const char *url = argv[argc - 1];
-
-	if (verbose)
-		printf("Target Domain: %s\n", url);
 
 	char *dom = (char *)malloc(BUFFER_SIZE * sizeof(char));
 	char *ext = (char *)malloc(BUFFER_SIZE * sizeof(char));
 
-	split_url(url, dom, ext);
+	int status = split_url(arguments.url, dom, ext);
+	if (status != EXIT_SUCCESS)
+	{
+		fprintf(stderr, "Failed to split URL into domain name and extension");
+		return EXIT_FAILURE;
+	}
 
-	if (verbose)
+	if (arguments.isVerbose)
+	{
+		printf("Target Domain: %s\n", arguments.url);
 		printf("Domain Name: %s\tDomain extension: %s\n", dom, ext);
+	}
 
 	const size_t dom_str_length = strlen(dom);
 	const size_t ext_str_length = strlen(ext);
@@ -80,7 +88,7 @@ int main(int argc, char *argv[])
 	get_binary_string(dom_str_length, dom, dom_binary_str);
 	get_binary_string(ext_str_length, ext, ext_binary_str);
 
-	if (verbose)
+	if (arguments.isVerbose)
 	{
 		printf("%s:\t%.*s\n", dom, (int)dom_binary_length, dom_binary_str);
 		printf("%s:\t%.*s\n", ext, (int)ext_binary_length, ext_binary_str);

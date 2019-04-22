@@ -50,13 +50,19 @@ void to_character(const char *binary_str, int position, char arr[])
 }
 
 // split url into domain name and domain extension
-void split_url(const char *url, char *dom, char *ext)
+int split_url(const char *url, char *dom, char *ext)
 {
         int start, end;
         int matching_status = match_regex("^[[:alnum:]]*(.)[[:alnum:].]*$", url, &start, &end);
-
+        if (matching_status != 0)
+        {
+                // printf("\n\n%d\n\n", matching_status);
+                return matching_status;
+        }
         sprintf(dom, "%.*s", (start), url);
         sprintf(ext, "%.*s", (int)strlen(url) - end, url + start + 1);
+
+        return EXIT_SUCCESS;
 }
 
 // check if input string is valid URL

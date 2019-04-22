@@ -20,9 +20,10 @@ int match_regex(const char *pattern, const char *to_match, int *start, int *end)
 
 	int exec_status = regexec(&r, to_match, nmatch, pmatch, 0);
 	regfree(&r);
-
 	if (exec_status != 0)
+	{
 		return exec_status;
+	}
 
 	*start = pmatch[1].rm_so;
 	*end = pmatch[1].rm_eo;
@@ -45,7 +46,11 @@ bool match(const char *pattern, const char *to_match)
 	int exec_status = regexec(&r, to_match, 0, NULL, 0);
 	regfree(&r);
 	if (!exec_status)
+	{
 		return true;
+	}
 	else
+	{
 		return false;
+	}
 }

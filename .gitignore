@@ -3,3 +3,5 @@
 test.c
 bitsquat
 valgrind*
+
+.vscode

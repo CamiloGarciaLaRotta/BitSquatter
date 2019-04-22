@@ -5,11 +5,12 @@
 
 [![Build Status](https://travis-ci.org/CamiloGarciaLaRotta/BitSquatter.svg?branch=master)](https://travis-ci.org/CamiloGarciaLaRotta/BitSquatter)
 # Theory
-**[Bitsquatting](http://dinaburg.org/bitsquatting.html)** refers to the registration of a domain names one bit different than a popular domain. It is a form of **[Cybersquatting](https://en.wikipedia.org/wiki/Cybersquatting)**.
+**[Bitsquatting](http://dinaburg.org/bitsquatting.html)** refers to the registration of a domain names one bit different than a popular domain.  
+It is a form of **[Cybersquatting](https://en.wikipedia.org/wiki/Cybersquatting)**.
 
-<!--It does so by splitting the URL into domain name and domain extension.  
+It does so by splitting the URL into domain name and domain extension.  
 Then it transforms the strings into their binary equivalents.  
-Finally it queries WHOIS servers with all the 1-bit permutations of the binary strings.-->
+It then generates all the 1-bit permutations of the binary strings.
 
 # Usage
 1. Compile: `make bitsquat`
@@ -22,11 +23,15 @@ Given a domain name, BitSquatter will output to stdout all the domains different
 ./bitsquat [-h|--help]
 ./bitsquat [-v|--verbose] <domain_name.extension>
 
-Example: ./bitsquat --verbose foobar.com
-foorar.com
-foorar.com
-foorar.com
-foorar.com
-foobar.coo
-foobar.col
+Example: ../bitsquat foobar.com
+Foobar.Com
+Foobar.som
+Foobar.kom
+Foobar.gom
+Foobar.aom
+Foobar.bom
+Foobar.cOm
+Foobar.cgm
+Foobar.ckm
+Foobar.cmm
 ```

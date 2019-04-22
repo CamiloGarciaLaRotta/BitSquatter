@@ -11,13 +11,13 @@ regexer.o: regexer.c regexer.h
 bitsquat.o: bitsquat.c bitsquat.h
 	gcc $(CFLAGS) -c bitsquat.c
 
-test: clean bitsquat
-	valgrind --leak-check=full \
-			 --show-leak-kinds=all \
-			 --track-origins=yes \
-			 --verbose \
-			 --log-file=valgrind-out.txt \
-			 ./bitsquat -v toto.com
+test: bitsquat
+	valgrind \
+		--leak-check=full \
+		--show-leak-kinds=all \
+		--track-origins=yes \
+		--verbose \
+		./bitsquat -v toto.com
 
 clean:
 	rm *.o bitsquat

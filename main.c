@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 	int status = split_url(arguments.url, dom, ext);
 	if (status != EXIT_SUCCESS)
 	{
-		fprintf(stderr, "Failed to split URL into domain name and extension");
+		fprintf(stderr, "Failed to split URL: %s into domain name and extension\n", arguments.url);
 		return EXIT_FAILURE;
 	}
 

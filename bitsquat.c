@@ -53,10 +53,9 @@ void to_character(const char *binary_str, int position, char arr[])
 int split_url(const char *url, char *dom, char *ext)
 {
         int start, end;
-        int matching_status = match_regex("^[[:alnum:]]*(.)[[:alnum:].]*$", url, &start, &end);
+        int matching_status = match_regex("^[[:alnum:]]*(\\.)[[:alnum:].]*$", url, &start, &end);
         if (matching_status != 0)
         {
-                // printf("\n\n%d\n\n", matching_status);
                 return matching_status;
         }
         sprintf(dom, "%.*s", (start), url);
@@ -68,5 +67,5 @@ int split_url(const char *url, char *dom, char *ext)
 // check if input string is valid URL
 bool is_valid_url(const char *string)
 {
-        return match("^([[:alnum:]*\.[[:alnum:].]*)$", string);
+        return match("^([[:alnum:]*\\.[[:alnum:].]*)$", string);
 }

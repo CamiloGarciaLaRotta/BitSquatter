@@ -45,7 +45,7 @@ bool match(const char *pattern, const char *to_match)
 
 	int exec_status = regexec(&r, to_match, 0, NULL, 0);
 	regfree(&r);
-	if (!exec_status)
+	if (exec_status == 0)
 	{
 		return true;
 	}

@@ -1,9 +1,9 @@
 
-<a href="https://travis-ci.org/CamiloGarciaLaRotta/BitSquatter"><img align="right" src="https://travis-ci.org/CamiloGarciaLaRotta/BitSquatter.svg?branch=master"></a>
+<a href="https://travis-ci.org/CamiloGarciaLaRotta/BitSquatter" alt="build status"><img align="right" src="https://travis-ci.org/CamiloGarciaLaRotta/BitSquatter.svg?branch=master"></a>
 <p align="left">
 <img src="https://i.imgur.com/nboh344.jpg " alt="BitSquatter" width="200">
 <br>
-<code style="font-size:10px">Logo by Xinh Studio @Noun Project</code>
+<code>Logo by Xinh Studio @Noun Project</code>
 </p>
 
 # Theory

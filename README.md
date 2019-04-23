@@ -11,7 +11,7 @@
 It is a form of **[Cybersquatting](https://en.wikipedia.org/wiki/Cybersquatting)**.
 
 The overall process is as follows:
-1. Split the URL into domain name and domain extension
+1. Trim HTTPS/HTTP protocol and plit the URL into domain name and extension
 2. Transform both strings into their binary equivalents
 3. Generate all the 1-bit permutations of each bitstring
 4. Transform the bitstrings back to characters
@@ -21,8 +21,8 @@ The overall process is as follows:
 1. Compile: `make bitsquat`
 2. Run: 
     ```bash
-    ./bitsquat --verbose foo.com
-    Target Domain: foo.com
+    ./bitsquat --verbose https://foo.com
+    Target Domain: https://foo.com
     Domain Name: foo        Domain extension: com
     foo:    011001100110111101101111
     com:    011000110110111101101101

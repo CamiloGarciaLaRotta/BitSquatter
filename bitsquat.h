@@ -17,6 +17,9 @@ void to_binary(int, int, char[]);
 // fill an array with the ascii representation of a binary string
 void to_character(const char *, int, char[]);
 
+// remove the prefix http[s]:// from the input string
+char *trim_protocol(char *);
+
 // split url into domain name and domain extension
 int split_url(const char *, char *, char *);
 

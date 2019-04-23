@@ -42,6 +42,20 @@ void to_character(const char *binary_str, int position, char arr[])
 	arr[position] = strtol(binary_str, 0, 2);
 }
 
+// remove the prefix http[s]:// from the input string
+char *trim_protocol(char *str)
+{
+	if (match("^(https\\://)", str))
+	{
+		return str += 8;
+	}
+	else if (match("^(http\\://)", str))
+	{
+		return str += 7;
+	}
+	return str;
+}
+
 // split url into domain name and domain extension
 int split_url(const char *url, char *dom, char *ext)
 {

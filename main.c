@@ -7,7 +7,7 @@
 // CLI documentation and flag handling
 const char *argp_program_version = "Bitsquat v0.1";
 static char doc[] = "BitSquatter outputs all valid domains different by 1 bit \
-from the input URL.\n\nExample: bitsquat --verbose foobar.com";
+from the input URL.\n\nExample: bitsquat --verbose https://foobar.com";
 static char args_doc[] = "[URL]";
 static struct argp_option options[] = {
 		{"verbose", 'v', 0, 0, "Display domain name and extension bitstrings", 0},
@@ -62,13 +62,15 @@ int main(int argc, char *argv[])
 
 	argp_parse(&argp, argc, argv, 0, 0, &arguments);
 
+	const char *url = trim_protocol(arguments.url);
+
 	char *dom = (char *)malloc(BUFFER_SIZE * sizeof(char));
 	char *ext = (char *)malloc(BUFFER_SIZE * sizeof(char));
 
-	int status = split_url(arguments.url, dom, ext);
+	int status = split_url(url, dom, ext);
 	if (status != EXIT_SUCCESS)
 	{
-		fprintf(stderr, "Failed to split URL: %s into domain name and extension\n", arguments.url);
+		fprintf(stderr, "Failed to split URL: %s into domain name and extension\n", url);
 		return EXIT_FAILURE;
 	}
 

@@ -5,3 +5,8 @@ bitsquat
 valgrind*
 
 .vscode
+
+
+# Added by cargo
+
+/target
